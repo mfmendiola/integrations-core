@@ -3,7 +3,7 @@
 # Licensed under a 3-clause BSD style license (see LICENSE)
 import click
 
-from ....utils import chdir, copy_path, dir_exists, path_join, temp_dir
+from ....utils import chdir, create_file, copy_path, dir_exists, path_join, temp_dir
 from ...constants import get_root
 from ...git import get_git_email, get_git_user, get_latest_commit_hash
 from ..console import CONTEXT_SETTINGS, abort, echo_info, echo_success, echo_waiting, run_or_abort
@@ -38,6 +38,11 @@ def push(ctx, branch):
     echo_waiting('Copying site to a temporary directory...')
     with temp_dir() as d:
         temp_repo_dir = copy_path(site_dir, d)
+
+        # https://help.github.com/en/github/working-with-github-pages/about-github-pages#static-site-generators
+        # https://github.com/mkdocs/mkdocs/pull/2060
+        echo_waiting('Writing .nojekyll at the root...')
+        create_file(path_join(temp_repo_dir, '.nojekyll'))
 
         with chdir(temp_repo_dir):
             echo_waiting('Configuring the temporary Git repository...')
