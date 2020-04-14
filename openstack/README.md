@@ -1,5 +1,9 @@
 # Openstack Integration
 
+<div class="alert alert-warning">
+*Important Note*: This integration only applies to OpenStack versions 12 and below (non-containerized OpenStack). If you are looking to collect metrics from OpenStack v13 and above (containerized OpenStack) please use the [OpenStack Controller integration](https://docs.datadoghq.com/integrations/openstack_controller/).
+</div>
+
 ![OpenStack default dashboard][1]
 
 ## Overview
